@@ -1,0 +1,56 @@
+SELECT AlbumID, Name, Milliseconds / 60000 AS Minutes, UnitPrice AS up
+FROM Track
+WHERE Minutes >= 5;
+
+SELECT COUNT(*)
+FROM Track
+
+SELECT AVG(Milliseconds) AS avg_len
+FROM Track;
+
+SELECT DISTINCT Country
+From Customer;
+
+SELECT FirstName, LastName, Country, Phone
+FROM Customer
+WHERE Country = "Brazil";
+
+SELECT AlbumId, COUNT(AlbumId) as Songs
+FROM Track
+GROUP BY AlbumId;
+
+SELECT AlbumId, SUM(Milliseconds) / 60000
+FROM Track
+GROUP BY AlbumId;
+
+SELECT Country, COUNT(CustomerId)
+From Customer
+GROUP BY Country;
+
+SELECT BillingCountry, MAX(Total_Revenue)
+FROM
+    (SELECT BillingCountry, SUM(Total) AS Total_Revenue
+    From Invoice
+    GROUP BY BillingCountry)
+AS MaxInvoice;
+
+SELECT BillingCountry, SUM(Total) AS Total_Revenue
+From Invoice
+GROUP BY BillingCountry
+ORDER BY Total_Revenue desc;
+
+SELECT BillingCountry, SUM(Total) AS Total_Revenue
+From Invoice
+GROUP BY BillingCountry
+HAVING Total_Revenue > 100;
+
+/* crashes, don't use WHERE and GROUP BY
+SELECT BillingCountry, SUM(Total) AS Total_Revenue
+From Invoice
+WHERE Total_Revenue > 100
+GROUP BY BillingCountry; */
+
+SELECT ar.Name, al.Title
+FROM Artist ar, Album al
+WHERE ar.ArtistId = al.ArtistId
+
